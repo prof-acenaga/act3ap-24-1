@@ -6,9 +6,8 @@ use App\Models\User;
 
 Route::get('/', function() {
 
-    $users = User::all();
 
-    return view('home', compact('users'));
+    return view('home');
 })->name('/');
 
 Route::get('/contact', function() {
