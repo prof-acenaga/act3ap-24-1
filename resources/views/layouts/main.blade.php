@@ -12,13 +12,13 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{{ route('/') }}">Inicio</a>
+                                <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('contact') }}">Contacto</a>
+                                <a class="nav-link" href="{{ url('contact') }}">Contacto</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Pricing</a>
+                                <a class="nav-link" href="{{ url('users') }}">Usuarios</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled" aria-disabled="true">Disabled</a>

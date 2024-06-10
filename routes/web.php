@@ -9,11 +9,11 @@ use App\Http\Controllers\PostController;
 Route::get('/', function() {
 
     return view('home');
-})->name('/');
+});
 
 Route::get('/contact', function() {
     return view('contact');
-})->name('contact');
+});
 
 Route::resources([
     'users'=> UserController::class,
