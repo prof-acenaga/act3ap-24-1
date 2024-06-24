@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+
 
 class PostController extends Controller
 {
@@ -12,8 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        dd($posts);
+        $posts = Post::paginate(10);
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -21,7 +24,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        return view('posts.create', compact('users'));
     }
 
     /**
@@ -29,7 +33,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'user_id' => 'required',
+            'main_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $post = Post::create($request->all());
+        if ($request->hasFile('main_image')) {
+            $post->main_image = $request->file('main_image')->store('posts', 'public');
+        } else {
+            $post->main_image = null;
+        }
+        $post->save();
+
+        return back()->with('status', 'El post se ha creado exitosamente');
     }
 
     /**
@@ -45,15 +64,27 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::find($id);
+        $users = User::all();
+        return view('posts.edit', compact('post', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $post->update($request->all());
+
+        //imagen
+        if ($request->file('main_image')) {
+            Storage::disk('public')->delete($post->main_image);
+            $post->main_image = $request->file('main_image')->store('posts', 'public');
+            $post->save();
+        }
+        //retornar
+        return redirect()->route('posts.index')
+            ->with('status', 'El post se ha actualizado exitosamente');
     }
 
     /**
@@ -61,6 +92,11 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::find($id);
+        Storage::disk('public')->delete($post->main_image);
+        $post->delete();
+
+        return redirect()->route('posts.index')
+        ->with('status', 'Eliminado con exito');
     }
 }

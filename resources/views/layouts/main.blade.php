@@ -21,7 +21,7 @@
                                 <a class="nav-link" href="{{ url('users') }}">Usuarios</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                                <a class="nav-link" href="{{ url('posts') }}">Publicaciones</a>
                             </li>
                         </ul>
                     </div>

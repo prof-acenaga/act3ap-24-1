@@ -8,7 +8,7 @@
     </div>
     <ul>
         @foreach ($users as $user)
-            <li>{{ $user->name }} - {{ $user->email }} -
+            <li>{{ $user->name }} - {{ $user->email }}
                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Editar</a>
                     @csrf
