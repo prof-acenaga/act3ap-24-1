@@ -1,8 +1,8 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('content')
     <div class="col-12">
-        <h1>Usuarios</h1>
+        <h1>Publicaciones</h1>
         @if (session('status'))
             <div class="alert alert-success" role="alert">
                 {{ session('status') }}

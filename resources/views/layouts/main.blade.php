@@ -17,12 +17,23 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('contact') }}">Contacto</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('users') }}">Usuarios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('posts') }}">Publicaciones</a>
-                            </li>
+                            @if (auth()->check())
+                                @if (auth()->user()->role === 'admin')
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ url('users') }}">Usuarios</a>
+                                    </li>
+                                @endif
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('posts') }}">Publicaciones</a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('login') }}">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('register') }}">Registro</a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

@@ -1,8 +1,18 @@
 @extends('layouts.main')
 
 @section('content')
-
-<h1 class="text-test">Pagina de contacto</h1>
+<div class="col-12">
+    <h1 class="text-test">Pagina de contacto</h1>
+    @if ($posts->count() > 0)
+        <ul>
+            @foreach ($posts as $post)
+                <li>{{ $post->name }}</li>
+            @endforeach
+        </ul>
+    @else
+        <p>No hay posts</p>
+    @endif
+</div>
 
 
 @endsection

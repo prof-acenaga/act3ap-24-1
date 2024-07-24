@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.app')
 
 @section('content')
     <div class="col-12">
@@ -27,13 +27,18 @@
                 <label class="input-group-text" for="main_image">Imagen Principal</label>
                 <input type="file" name="main_image" class="form-control" id="main_image">
             </div>
-            <div class="mb-3">
-                <select name="user_id" id="user_id">
-                    @foreach ($users as $user)
-                        <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->id }}</option>
-                    @endforeach
-                </select>
-            </div>
+            @if (@auth()->user->role === 'admin')
+                <div class="mb-3">
+                    <select name="user_id" id="user_id">
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->id }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @else
+                <input name="user_id" type="hidden" value="{{ auth()->user()->id }}">
+            @endif
+
             @csrf
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

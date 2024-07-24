@@ -15,7 +15,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(10);
+        if(auth()->user()->role === 'admin'){
+            $posts = Post::paginate(10);
+        }else{
+            $posts = Post::where('user_id', auth()->user()->id)->paginate(10);
+        }
         return view('posts.index', compact('posts'));
     }
 
