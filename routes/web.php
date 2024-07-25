@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Product;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
 
@@ -13,8 +15,17 @@ Route::get('/', function() {
 });
 
 Route::get('/contact', function() {
+    return view('contact');
+});
+
+Route::get('/blog', function() {
     $posts = Post::all();
-    return view('contact', compact('posts'));
+    return view('blog', compact('posts'));
+});
+
+Route::get('/products', function() {
+    $products = Product::all();
+    return view('products', compact('products'));
 });
 
 
@@ -29,4 +40,7 @@ Route::middleware(['auth'])->group(function() {
         'users'=> UserController::class,
         'posts'=> PostController::class
     ]);
+    Route::get('product/add/{product}', [OrderController::class, 'addProduct'])->name('product.add');
+    Route::get('product/remove/{product}', [OrderController::class, 'removeProduct'])->name('product.remove');
+    Route::get('checkout', [OrderController::class, 'showCart'])->name('checkout');
 });

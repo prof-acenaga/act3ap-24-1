@@ -17,6 +17,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('contact') }}">Contacto</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('blog') }}">Entradas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('products') }}">Productos</a>
+                            </li>
                             @if (auth()->check())
                                 @if (auth()->user()->role === 'admin')
                                     <li class="nav-item">
@@ -25,6 +31,9 @@
                                 @endif
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url('posts') }}">Publicaciones</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('checkout') }}">Productos</a>
                                 </li>
                             @else
                                 <li class="nav-item">
